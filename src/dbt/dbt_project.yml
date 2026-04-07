@@ -1,0 +1,23 @@
+name: azrius_bootstrap
+version: 1.0.0
+config-version: 2
+
+profile: azrius
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+analysis-paths: ["analyses"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  azrius_bootstrap:
+    staging:
+      +schema: "{{ env_var('POSTGRES_SCHEMA', 'staging') }}"
+      +materialized: table

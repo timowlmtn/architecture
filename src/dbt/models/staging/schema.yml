@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: customers
+    description: Initial customer master table for local bootstrap.
+    columns:
+      - name: customer_id
+        description: Primary key for the customer.
+        tests:
+          - not_null
+          - unique
+      - name: email
+        description: Customer email address.
+      - name: created_at
+        description: Customer creation timestamp.
+
+  - name: products
+    description: Initial product master table for local bootstrap.
+    columns:
+      - name: product_id
+        description: Primary key for the product.
+        tests:
+          - not_null
+          - unique
+      - name: sku
+        description: Business product identifier.
+        tests:
+          - not_null
+      - name: unit_price
+        description: Current unit price.
+
+  - name: orders
+    description: Initial order header table.
+    columns:
+      - name: order_id
+        description: Primary key for the order.
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: Foreign key to customers.
+        tests:
+          - relationships:
+              to: ref('customers')
+              field: customer_id
+      - name: order_status
+        description: Current order status.
+
+  - name: order_items
+    description: Initial order line table.
+    columns:
+      - name: order_item_id
+        description: Primary key for the order line.
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: Foreign key to orders.
+        tests:
+          - relationships:
+              to: ref('orders')
+              field: order_id
+      - name: product_id
+        description: Foreign key to products.
+        tests:
+          - relationships:
+              to: ref('products')
+              field: product_id
+
+  - name: cdc_events
+    description: Append-oriented local CDC event landing table.
+    columns:
+      - name: event_id
+        description: Unique event identifier.
+        tests:
+          - not_null
+          - unique
+      - name: source_table
+        description: Source table name from PostgreSQL.
+      - name: operation
+        description: CDC operation code such as I, U, or D.
+      - name: event_ts
+        description: Event timestamp.
