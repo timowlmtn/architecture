@@ -8,17 +8,6 @@ This project bootstraps an initial PostgreSQL schema using dbt.
 - `dbt-postgres`
 - A running PostgreSQL instance
 
-## Environment
-
-```bash
-export POSTGRES_HOST="localhost"
-export POSTGRES_USER="svc_azrius"
-export POSTGRES_PASSWORD="Azr1US"
-export POSTGRES_DB="azrius"
-export POSTGRES_PORT=5432
-export POSTGRES_SCHEMA="staging"
-```
-
 ## Quick start
 
 ```bash
