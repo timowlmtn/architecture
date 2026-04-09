@@ -4,3 +4,5 @@ mmd:
 reqs:
 	pip install -r requirements.txt
 
+fmt:
+	ruff format src/python

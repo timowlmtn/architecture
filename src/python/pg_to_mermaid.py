@@ -96,7 +96,13 @@ def mermaid_type(pg_type: str) -> str:
 
 
 def get_connection() -> psycopg.Connection:
-    required = ["POSTGRES_HOST", "POSTGRES_DB", "POSTGRES_DB", "POSTGRES_USER", "POSTGRES_PASSWORD"]
+    required = [
+        "POSTGRES_HOST",
+        "POSTGRES_PORT",
+        "POSTGRES_DB",
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+    ]
     missing = [name for name in required if not os.getenv(name)]
     if missing:
         raise RuntimeError(
@@ -160,7 +166,9 @@ def fetch_columns(conn: psycopg.Connection, schemas: List[str]) -> List[Column]:
     ]
 
 
-def fetch_foreign_keys(conn: psycopg.Connection, schemas: List[str]) -> List[ForeignKey]:
+def fetch_foreign_keys(
+    conn: psycopg.Connection, schemas: List[str]
+) -> List[ForeignKey]:
     query = """
     SELECT
         tc.constraint_name,
