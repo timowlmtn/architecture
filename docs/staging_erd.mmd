@@ -1,0 +1,77 @@
+erDiagram
+    staging_cdc_events {
+        VARCHAR event_id
+        VARCHAR source_table
+        VARCHAR operation
+        JSONB primary_key_payload
+        JSONB before_payload
+        JSONB after_payload
+        TIMESTAMP event_ts
+        TIMESTAMP ingested_at
+    }
+    %% staging_cdc_events = staging.cdc_events
+    staging_customers {
+        BIGINT customer_id
+        VARCHAR email
+        VARCHAR first_name
+        VARCHAR last_name
+        VARCHAR customer_status
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+    %% staging_customers = staging.customers
+    staging_order_items {
+        BIGINT order_item_id
+        BIGINT order_id
+        BIGINT product_id
+        INT quantity
+        NUMERIC unit_price
+        NUMERIC line_total
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+    %% staging_order_items = staging.order_items
+    staging_orders {
+        BIGINT order_id
+        BIGINT customer_id
+        VARCHAR order_status
+        NUMERIC order_total
+        VARCHAR currency_code
+        TIMESTAMP ordered_at
+        TIMESTAMP updated_at
+    }
+    %% staging_orders = staging.orders
+    staging_products {
+        BIGINT product_id
+        VARCHAR sku
+        VARCHAR product_name
+        VARCHAR product_category
+        NUMERIC unit_price
+        BOOLEAN is_active
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+    %% staging_products = staging.products
+    staging_raw_kinesis_events {
+        BIGINT ingest_id "PK, NOT NULL"
+        JSONB raw "NOT NULL"
+        TIMESTAMPTZ loaded_at "NOT NULL"
+    }
+    %% staging_raw_kinesis_events = staging.raw_kinesis_events
+    staging_stg_kinesis_events {
+        BIGINT ingest_id
+        TIMESTAMPTZ ingest_ts
+        TEXT event_id
+        TEXT event_type
+        TEXT partition_key
+        TEXT lat
+        TEXT lon
+        TEXT route_id
+        TEXT facility_id
+        TIMESTAMPTZ event_ts
+        JSONB payload_json
+        TEXT package_id
+        TEXT source
+        TEXT schema_version
+    }
+    %% staging_stg_kinesis_events = staging.stg_kinesis_events
