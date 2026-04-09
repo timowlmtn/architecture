@@ -1,6 +1,6 @@
 erDiagram
     staging_cdc_events {
-        VARCHAR event_id
+        VARCHAR event_id "PK, NOT NULL"
         VARCHAR source_table
         VARCHAR operation
         JSONB primary_key_payload
@@ -11,7 +11,7 @@ erDiagram
     }
     %% staging_cdc_events = staging.cdc_events
     staging_customers {
-        BIGINT customer_id
+        BIGINT customer_id "PK, NOT NULL"
         VARCHAR email
         VARCHAR first_name
         VARCHAR last_name
@@ -21,7 +21,7 @@ erDiagram
     }
     %% staging_customers = staging.customers
     staging_order_items {
-        BIGINT order_item_id
+        BIGINT order_item_id "PK, NOT NULL"
         BIGINT order_id
         BIGINT product_id
         INT quantity
@@ -32,7 +32,7 @@ erDiagram
     }
     %% staging_order_items = staging.order_items
     staging_orders {
-        BIGINT order_id
+        BIGINT order_id "PK, NOT NULL"
         BIGINT customer_id
         VARCHAR order_status
         NUMERIC order_total
@@ -42,7 +42,7 @@ erDiagram
     }
     %% staging_orders = staging.orders
     staging_products {
-        BIGINT product_id
+        BIGINT product_id "PK, NOT NULL"
         VARCHAR sku
         VARCHAR product_name
         VARCHAR product_category
@@ -75,3 +75,6 @@ erDiagram
         TEXT schema_version
     }
     %% staging_stg_kinesis_events = staging.stg_kinesis_events
+    staging_orders ||--o{ staging_order_items : "order_items_order_fk: order_id -> order_id"
+    staging_products ||--o{ staging_order_items : "order_items_product_fk: product_id -> product_id"
+    staging_customers ||--o{ staging_orders : "orders_customer_fk: customer_id -> customer_id"
