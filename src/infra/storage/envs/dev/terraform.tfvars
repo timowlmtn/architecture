@@ -23,7 +23,6 @@ EOT
 
 multipart_abort_days    = 7
 enable_versioning       = true
-sse_algorithm           = "AES256"
 block_public_acls       = true
 block_public_policy     = true
 ignore_public_acls      = true
@@ -35,3 +34,9 @@ tags = {
   ManagedBy  = "Terraform"
   Layer      = "storage"
 }
+
+sse_algorithm               = "aws:kms"
+kms_enable_key_rotation     = true
+kms_deletion_window_in_days = 30
+kms_admin_principal_arns    = []
+kms_user_principal_arns     = []
