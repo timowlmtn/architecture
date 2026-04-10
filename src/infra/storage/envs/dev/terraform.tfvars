@@ -1,3 +1,4 @@
+aws_profile   = "dataweave-dev"
 aws_region    = "us-east-2"
 project       = "dataweave"
 environment   = "dev"

@@ -136,6 +136,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "raw" {
     id     = "abort-incomplete-multipart-upload"
     status = "Enabled"
 
+    filter {}
+
     abort_incomplete_multipart_upload {
       days_after_initiation = var.multipart_abort_days
     }
@@ -148,7 +150,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "lakehouse" {
   rule {
     id     = "abort-incomplete-multipart-upload"
     status = "Enabled"
-
+    filter {}
     abort_incomplete_multipart_upload {
       days_after_initiation = var.multipart_abort_days
     }
@@ -161,7 +163,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "logs" {
   rule {
     id     = "abort-incomplete-multipart-upload"
     status = "Enabled"
-
+    filter {}
     abort_incomplete_multipart_upload {
       days_after_initiation = var.multipart_abort_days
     }
@@ -173,8 +175,4 @@ resource "aws_s3_object" "lakehouse_readme" {
   key          = var.lakehouse_readme_key
   content      = var.lakehouse_readme_body
   content_type = "text/markdown"
-
-  tags = merge(local.default_tags, {
-    Name = "${var.lakehouse_bucket_name}-${var.lakehouse_readme_key}"
-  })
 }

@@ -7,6 +7,8 @@ TFVARS ?= terraform.tfvars
 
 fmt:
 	terraform -chdir=$(TF_DIR) fmt -recursive
+	terraform -chdir=$(COMPONENT)/modules fmt -recursive
+
 
 init:
 	terraform -chdir=$(TF_DIR) init

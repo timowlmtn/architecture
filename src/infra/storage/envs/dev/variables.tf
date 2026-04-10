@@ -1,3 +1,8 @@
+variable "aws_profile" {
+  description = "Named AWS profile from ~/.aws/config and ~/.aws/credentials"
+  type        = string
+}
+
 variable "aws_region" {
   type        = string
   description = "AWS region for the storage stack."
