@@ -8,6 +8,8 @@ TFVARS ?= terraform.tfvars
 fmt:
 	terraform -chdir=$(TF_DIR) fmt -recursive
 	terraform -chdir=$(COMPONENT)/modules fmt -recursive
+	terraform -chdir=postgres-dev fmt -recursive
+	terraform -chdir=lakehouse fmt -recursive
 
 
 init:
